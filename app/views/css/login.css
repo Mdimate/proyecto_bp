@@ -1,0 +1,61 @@
+body {
+    background-color: #2ea049;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.login-container {
+    background-color: #ffffff;
+    width: 320px;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.login-container img {
+    max-width: 100%; /* Asegúrate de que la imagen no exceda el ancho del contenedor */
+    max-height: 150px; /* Ajusta la altura máxima de la imagen */
+   
+}
+
+form {
+    margin-top: 20px;
+}
+
+input[type=text], input[type=password] {
+    width: 100%;
+    padding: 12px 20px 10px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: none; /* Eliminar el borde */
+    border-bottom: 2px solid #ccc; /* Agregar un borde inferior */
+    font-size: 16px;
+    outline: none;
+}
+
+input[type=text]:focus, input[type=password]:focus {
+    
+    border-bottom: 2px solid #2EA049; /* Cambiar el color del borde inferior al enfocar */
+}
+
+input[type=submit] {
+    background-color: #2EA049;
+    color: #ffffff;
+    border: none;
+    padding: 14px 20px;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+input[type=submit]:hover {
+    background-color: #28a745;
+}
