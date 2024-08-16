@@ -1,9 +1,13 @@
-* {
+/* Establecer el box-sizing para todos los elementos */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
 }
 
+/* Estilo general del cuerpo */
 body {
     font-family: 'Tahoma', sans-serif;
     display: flex;
@@ -11,6 +15,7 @@ body {
     height: 100vh;
 }
 
+/* Estilo del encabezado */
 header {
     background-color: #2EA049;
     width: 210px;
@@ -25,6 +30,7 @@ header {
     transition: width 0.3s, height 0.3s;
 }
 
+/* Estilo de la navegación */
 nav {
     display: flex;
     flex-direction: column;
@@ -62,119 +68,92 @@ a:hover {
     margin-right: 10px;
 }
 
-main {
-    margin-left: 200px;
+/* Aplicar la fuente Roboto a todo el formulario */
+body, form {
+    font-family: 'Roboto', sans-serif;
+}
+#titulo{
+    margin-left: 580px;
+
+}
+
+#subtitulo{
+    margin-left: 590px;
+}
+/* Estilo general del formulario */
+form {
+    max-width: 400px; /* Reducido el ancho máximo */
+    margin: 0 auto;
+    padding: 200px;
+    margin-top: -250px;
+    margin-left: 300px;
+
+}
+
+/* Centrar el formulario en la pantalla */
+.form-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    width: calc(100% - 220px);
-    transition: margin-left 0.3s, width 0.3s;
+    min-height: 100vh;
 }
 
-.container {
-    width: 100%;
-    max-width: 600px;
+/* Estilo de los grupos de formulario */
+.form-group {
+    margin-bottom: 15px;
 }
 
-main h1 {
-    font-size: 2rem;
+/* Estilo de las etiquetas */
+label {
+    
+    color: #333;
+    display: flex;
+    margin-bottom: 5px;
+}
+
+/* Estilo de los campos de entrada */
+input[type="text"],
+input[type="date"],
+input[type="email"] {
+    width: 400px;
+    padding: 8px; /* Reducido el padding */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px; /* Reducido el tamaño de fuente */
+
+}
+
+/* Estilo de los botones */
+button {
+    padding: 8px 16px; /* Reducido el padding */
+    border: none;
+    border-radius: 4px;
+    font-size: 14px; /* Reducido el tamaño de fuente */
+    cursor: pointer;
+}
+
+button[type="reset"] {
+    background-color: #f0f0f0;
+    color: #333;
+    margin-right: 10px;
+    margin-left: 110px;
+}
+
+button[type="submit"] {
+    background-color: #2EA049;
+    border-color: #2EA049;
+    color: #fff;
+    margin-left: 200px;
+    margin-top: -65px;
+}
+
+/* Estilo del contenedor de botones */
+.text-center {
     text-align: center;
-    margin-top: 3px;
-    color: black;
-    margin-bottom: 20px;
 }
 
-@media (max-width: 1024px) {
-    header {
-        width: 180px;
-    }
-
-    .icon {
-        height: 40px;
-        width: 40px;
-    }
-
-    main {
-        margin-left: 190px;
-        width: calc(100% - 190px);
-    }
-}
-
-@media (max-width: 768px) {
-    header {
-        width: 100%;
-        height: auto;
-        position: relative;
-        flex-direction: row;
-        justify-content: space-between;
-        padding: 10px;
-    }
-
-    nav {
-        display: flex;
-        flex-direction: row;
-    }
-
-    nav ul {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-around;
-        width: 100%;
-        margin-top: 0;
-    }
-
-    nav ul li {
-        margin: 0;
-    }
-
-    .icon {
-        height: 30px;
-        width: 30px;
-    }
-
-    main {
-        margin-left: 0;
-        margin-top: 60px;
-        width: 100%;
-    }
-
-    main h1 {
-        font-size: 1.5rem;
-    }
-}
-
-@media (max-width: 480px) {
-    header {
-        flex-wrap: wrap;
-    }
-
-    nav ul {
-        flex-wrap: wrap;
-    }
-
-    nav ul li {
-        flex: 1 1 50%;
-    }
-
-    .icon {
-        height: 25px;
-        width: 25px;
-    }
-
-    main h1 {
-        font-size: 1.5rem;
-    }
-}
-
-@media (max-width: 320px) {
-    .icon {
-        height: 20px;
-        width: 20px;
-    }
-
-    main h1 {
-        font-size: 1rem;
-    }
+/* Estilo para mensajes de ayuda */
+.form-text {
+    font-size: 12px;
+    color: #666;
 }

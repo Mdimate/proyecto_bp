@@ -43,13 +43,13 @@
             return $cadena; 
         }
 
-        protected function verificarDatos($filtro,$cadena){
-            if (preg_match("/^".$filtro."$/", $cadena)){
+        protected function verificarDatos($filtro, $cadena) {
+            $filtro = preg_quote($filtro, '/'); // Escapa los caracteres especiales en $filtro
+            if (preg_match("/^".$filtro."$/", $cadena)) {
                 return false;
             } else {
                 return true;
             }
-            
         }
 
         protected function guardarDatos($tabla,$datos){
