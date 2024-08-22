@@ -4,11 +4,12 @@
     require_once "./app/views/inc/session_start.php";
 
     if(isset($_GET["views"])){
-        $url=explode("/",$_GET["views"]);
-    }else{
-        $url=["login"];
+        $url = explode("/", $_GET["views"]);
+    } else {
+        $url = ["login"];
     }
 
+    $current_view = $url[0];
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -18,20 +19,19 @@
 <body>
     <?php 
     use app\controllers\viewsController;
-    $viewsController= new viewsController(); 
-    $vista = $viewsController -> obtenerVistasControlador($url[0]);
+    use app\controllers\loginController;
 
-    if($vista=="login" || $vista=="404"){
+    $insLogin = new loginController(); 
+    $viewsController = new viewsController(); 
+    $vista = $viewsController->obtenerVistasControlador($current_view);
+
+    if($vista == "login" || $vista == "404" || $vista == "registrarse"){
         require_once "./app/views/content/".$vista."-view.php";
-
-    }else{
+    } else {
         require_once "./app/views/inc/navbar.php";
         require_once $vista; 
-
     }
     require_once "./app/views/inc/script.php"; 
     ?>
-
-    
 </body>
 </html>

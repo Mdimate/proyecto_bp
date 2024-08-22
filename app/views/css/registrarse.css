@@ -1,0 +1,35 @@
+
+#titulo{
+    text-align: center;
+}
+
+#formulario{
+    width: 350px;
+    margin-left: 10px;
+    display: grid;
+    
+}
+#tarjeta{
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-left: 480px;
+}
+
+#boton{
+    background-color: #2ea049;
+    width: 140px;
+    border-color: #2ea049;
+    margin-left: 88px;
+}
+
+
+

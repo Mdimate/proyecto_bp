@@ -9,15 +9,22 @@
 <body>
 
     <section class="login-container"> 
-        <form action="<?php echo APP_URL; ?>dashboard/" method="post">
-            <input type="text" id="correo" placeholder="Correo">
+        <form action="" method="POST" >
+            <input type="text" name="login_usuario" id="correo" placeholder="Correo" >
             <br><br>
-            <input type="password" id="contraseña" placeholder="Contraseña">
+            <input type="password" name="login_clave" id="contraseña" placeholder="Contraseña">
             <br><br>
         <input type="submit" value="Ingresar" id="boton" src="<?php echo APP_URL; ?>dashboard/">
+        <button type="button" id="boton_registro" onclick="window.location.href='<?php echo APP_URL; ?>registrarse/'">Registrar</button>
         </form>
     </section>
 
 </body>
 </html>
+<?php
+    if(isset($_POST['login_usuario']) && isset($_POST['login_clave'])){
+        $insLogin->iniciarSesionControlador();
+}
 
+
+?>
