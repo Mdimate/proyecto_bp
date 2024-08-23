@@ -14,17 +14,12 @@
             <br><br>
             <input type="password" name="login_clave" id="contraseña" placeholder="Contraseña">
             <br><br>
-        <input type="submit" value="Ingresar" id="boton" src="<?php echo APP_URL; ?>dashboard/">
+        <input type="submit" value="Ingresar" id="boton">
         <button type="button" id="boton_registro" onclick="window.location.href='<?php echo APP_URL; ?>registrarse/'">Registrar</button>
         </form>
     </section>
 
 </body>
 </html>
-<?php
-    if(isset($_POST['login_usuario']) && isset($_POST['login_clave'])){
-        $insLogin->iniciarSesionControlador();
-}
 
 
-?>

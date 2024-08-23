@@ -46,11 +46,12 @@
         protected function verificarDatos($filtro, $cadena) {
             $filtro = preg_quote($filtro, '/'); // Escapa los caracteres especiales en $filtro
             if (preg_match("/^".$filtro."$/", $cadena)) {
-                return false;
+                return true; // Devuelve true si coincide
             } else {
-                return true;
+                return false;
             }
         }
+        
 
         protected function guardarDatos($tabla,$datos){
 
