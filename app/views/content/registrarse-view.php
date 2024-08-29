@@ -18,7 +18,12 @@
 
     <div class="mb-3">
     <label for="exampleInputPassword1" class="form-label">Contraseña</label>
-    <input type="password" class="form-control" id="exampleInputPassword1" name="usuario_clave" pattern="[a-zA-Z0-9\$@.\-]{7,100}" maxlength="100" required>
+    <input type="password" class="form-control" id="exampleInputPassword1" name="usuario_clave_1" pattern="[a-zA-Z0-9$@.-]{7,100}" maxlength="100" required>
+    </div>
+
+    <div class="mb-3">
+    <label for="exampleInputPassword1" class="form-label">Repita la Contraseña</label>
+    <input type="password" class="form-control" id="exampleInputPassword2" name="usuario_clave_2" pattern="[a-zA-Z0-9$@.-]{7,100}" maxlength="100" required>
     </div>
 
     <button type="submit" class="btn btn-primary" id="boton">Registrarse</button>

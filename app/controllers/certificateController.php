@@ -27,7 +27,7 @@
             }
             
             # Verificar integridad de datos
-            if (!$this->verificarDatos("[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{3,100}", $nombre)) {
+            if ($this->verificarDatos("[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{3,40}", $nombre)) {
                 $alerta = [
                     "tipo" => "simple",
                     "titulo" => "Ocurrió un error inesperado",
@@ -39,7 +39,7 @@
             }
             
 
-            if (!$this->verificarDatos("[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{2,100}", $grupo)) {
+            if ($this->verificarDatos("[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{3,40}", $grupo)) {
                 $alerta = [
                     "tipo" => "simple",
                     "titulo" => "Ocurrió un error inesperado",
@@ -50,7 +50,7 @@
                 exit();
             }
 
-            if (!$this->verificarDatos("(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[012])\/\d{4}", $fecha)) {
+            if ($this->verificarDatos("(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[012])\/\d{4}", $fecha)) {
                 $alerta = [
                     "tipo" => "simple",
                     "titulo" => "Ocurrió un error inesperado",

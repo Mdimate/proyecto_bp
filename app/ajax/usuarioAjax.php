@@ -6,14 +6,14 @@
     
     use app\controllers\userController;
 
-    if (isset($_POST['modulo_usuario'])) {
+    if(isset($_POST['modulo_usuario'])){
         $insUsuario = new userController();
-    
-        if ($_POST['modulo_usuario'] == "registrar") {
+
+        if($_POST['modulo_usuario']=="registrar"){
             echo $insUsuario->registrarUsuarioControlador();
+
         }
-    } else {
-        session_destroy();
-        header("Location: " . APP_URL . "login/");
+    }else{
+        session_destroy(); 
+        header("Location: ".APP_URL."login/");
     }
-    
