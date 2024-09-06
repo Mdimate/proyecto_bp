@@ -29,6 +29,14 @@
     if($vista == "login" || $vista == "404" || $vista == "registrarse"){
         require_once "./app/views/content/".$vista."-view.php";
     } else {
+
+        #Cerrar Sesion# 
+        if(!isset($_SESSION['id']) || !isset($_SESSION['correo']) || !isset($_SESSION['nombre']) || 
+        $_SESSION['id']=="" || $_SESSION['correo']=="" || $_SESSION['nombre']==""){
+            $insLogin->cerrarSesionControlador();
+            exit();
+        }
+
         require_once "./app/views/inc/navbar.php";
         require_once $vista; 
     }
