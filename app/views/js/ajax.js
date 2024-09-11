@@ -1,53 +1,56 @@
-const formularios_ajax=document.querySelectorAll(".FormularioAjax");
+/* Verifica si formularios_ajax ya está declarado */
+if (typeof formularios_ajax === 'undefined') {
 
-formularios_ajax.forEach(formularios => {
+    /* Enviar formularios via AJAX */
+    const formularios_ajax = document.querySelectorAll(".FormularioAjax");
 
-    formularios.addEventListener("submit",function(e){
-        
-        e.preventDefault();
+    formularios_ajax.forEach(formulario => {
 
-        Swal.fire({
-            title: '¿Estás seguro?',
-            text: "Quieres realizar la acción solicitada",
-            icon: 'question',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Si, realizar',
-            cancelButtonText: 'No, cancelar'
-        }).then((result) => {
-            if (result.isConfirmed){
+        formulario.addEventListener("submit", function (e) {
 
-                let data = new FormData(this);
-                let method=this.getAttribute("method");
-                let action=this.getAttribute("action");
+            e.preventDefault();
 
-                let encabezados= new Headers();
+            Swal.fire({
+                title: '¿Estás seguro?',
+                text: "Quieres realizar la acción solicitada",
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si, realizar',
+                cancelButtonText: 'No, cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
 
-                let config={
-                    method: method,
-                    headers: encabezados,
-                    mode: 'cors',
-                    cache: 'no-cache',
-                    body: data
-                };
+                    let data = new FormData(this);
+                    let method = this.getAttribute("method");
+                    let action = this.getAttribute("action");
 
-                fetch(action,config)
-                .then(respuesta => respuesta.json())
-                .then(respuesta =>{ 
-                    return alertas_ajax(respuesta);
-                });
-            }
+                    let encabezados = new Headers();
+
+                    let config = {
+                        method: method,
+                        headers: encabezados,
+                        mode: 'cors',
+                        cache: 'no-cache',
+                        body: data
+                    };
+
+                    fetch(action, config)
+                        .then(respuesta => respuesta.json())
+                        .then(respuesta => {
+                            return alertas_ajax(respuesta);
+                        });
+                }
+            });
+
         });
 
     });
+}
 
-});
-
-
-
-function alertas_ajax(alerta){
-    if(alerta.tipo=="simple"){
+function alertas_ajax(alerta) {
+    if (alerta.tipo == "simple") {
 
         Swal.fire({
             icon: alerta.icono,
@@ -56,7 +59,7 @@ function alertas_ajax(alerta){
             confirmButtonText: 'Aceptar'
         });
 
-    }else if(alerta.tipo=="recargar"){
+    } else if (alerta.tipo == "recargar") {
 
         Swal.fire({
             icon: alerta.icono,
@@ -64,12 +67,12 @@ function alertas_ajax(alerta){
             text: alerta.texto,
             confirmButtonText: 'Aceptar'
         }).then((result) => {
-            if(result.isConfirmed){
+            if (result.isConfirmed) {
                 location.reload();
             }
         });
 
-    }else if(alerta.tipo=="limpiar"){
+    } else if (alerta.tipo == "limpiar") {
 
         Swal.fire({
             icon: alerta.icono,
@@ -77,37 +80,42 @@ function alertas_ajax(alerta){
             text: alerta.texto,
             confirmButtonText: 'Aceptar'
         }).then((result) => {
-            if(result.isConfirmed){
+            if (result.isConfirmed) {
                 document.querySelector(".FormularioAjax").reset();
             }
         });
 
-    }else if(alerta.tipo=="redireccionar"){
-        window.location.href=alerta.url;
+    } else if (alerta.tipo == "redireccionar") {
+        window.location.href = alerta.url;
     }
 }
 
-/* Boton cerrar sesion */
+/* Botón cerrar sesión */
+// Verificamos si btn_exit ya está definido
+if (typeof btn_exit === 'undefined') {
+    let btn_exit = document.getElementById("btn_exit");
 
-let btn_exit=document.getElementById("btn_exit");
+    if (btn_exit) {
+        btn_exit.addEventListener("click", function (e) {
 
-btn_exit.addEventListener("click", function(e){
+            e.preventDefault();
 
-    e.preventDefault();
+            Swal.fire({
+                title: '¿Quieres salir del sistema?',
+                text: "La sesión actual se cerrará y saldrás del sistema",
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si, salir',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    let url = this.getAttribute("href");
+                    window.location.href = url;
+                }
+            });
 
-    Swal.fire({
-        title: '¿Quieres salir del sistema?',
-        text: "La sesión actual se cerrará y saldrás del sistema",
-        icon: 'question',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Si, salir',
-        cancelButtonText: 'Cancelar'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            let url=this.getAttribute("href");
-            window.location.href=url;
-        }
-    });
-});
+        });
+    }
+}

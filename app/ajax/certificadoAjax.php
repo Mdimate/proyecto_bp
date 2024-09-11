@@ -12,13 +12,14 @@
         if($_POST['modulo_certificado'] == "registrar"){
             echo $insCertificado->registrarCertificadoControlador();
         }
-
         if($_POST['modulo_certificado'] == "eliminar"){
             echo $insCertificado->eliminarCertificadoControlador();
         }
-
+        if($_POST['modulo_certificado'] == "actualizar"){
+            echo $insCertificado->actualizarCertificadoControlador();
+        }
     } else {
         session_destroy();
         header("Location: ".APP_URL."login/");
     }
-    
+?>

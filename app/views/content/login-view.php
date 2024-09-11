@@ -16,6 +16,7 @@
             <br><br>
         <input type="submit" value="Ingresar" id="boton">
         <button type="button" id="boton_registro" onclick="window.location.href='<?php echo APP_URL; ?>registrarse/'">Registrar</button>
+
         </form>
     </section>
 

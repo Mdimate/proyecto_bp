@@ -35,6 +35,6 @@
             </div>
         </div>
     </main>
-    <script src="<?php echo APP_URL; ?>app/views/css/bootstrap-5.3.3-dist/js/bootstrap.min.js"></script>
+    
 </body>
 </html>

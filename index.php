@@ -30,7 +30,7 @@
         require_once "./app/views/content/".$vista."-view.php";
     } else {
 
-        #Cerrar Sesion# 
+        #Cerrar Sesion
         if(!isset($_SESSION['id']) || !isset($_SESSION['correo']) || !isset($_SESSION['nombre']) || 
         $_SESSION['id']=="" || $_SESSION['correo']=="" || $_SESSION['nombre']==""){
             $insLogin->cerrarSesionControlador();

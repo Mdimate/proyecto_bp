@@ -121,8 +121,6 @@
                 }
                 echo json_encode($alerta);
             }
-
-        
 # Controlador para listar certificados
     public function listarCertificadoControlador($pagina, $registros, $url, $busqueda){
     $pagina = $this->limpiarCadena($pagina);
@@ -154,56 +152,75 @@
     $numeroPaginas = ceil($total/$registros);
 
     $tabla .= '
-    <div class="container-fluid">
-        <div class="table-responsive">
-            <table class="table table-hover table-bordered table-striped" id="tabla">
-                <thead class="thead-dark">
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Nombre</th>
-                        <th scope="col">Grupo de vencimiento</th>
-                        <th scope="col">Correo alertamiento</th>
-                        <th scope="col">Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>';
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Certificados</title>
+    <link rel="stylesheet" href="'.APP_URL.'app/views/css/inventario.css">
+</head>
+<body>
+    <main>
+        <h1>Listado de Certificados</h1>
+        <div class="container-fluid">
+            <div class="table-responsive">
+                <table class="table table-hover table-bordered table-striped" id="tabla">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Grupo de vencimiento</th>
+                            <th scope="col">Correo alertamiento</th>
+                            <th scope="col">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>';
 
-    if ($total >= 1 && $pagina <= $numeroPaginas) {
-        $contador = $inicio + 1;
-        $pag_inicio = $inicio + 1;
+if ($total >= 1 && $pagina <= $numeroPaginas) {
+    $contador = $inicio + 1;
+    $pag_inicio = $inicio + 1;
 
-        foreach ($datos as $rows) {
-            $tabla.= '
-            <tr>
-                <th scope="row">' . $contador . '</th> 
-                <td>' . $rows['nombre'] . '</td> 
-                <td>' . $rows['grupo'] . '</td> 
-                <td>' . $rows['correo_alertamiento'] . '</td> 
-                <td>
-                    <a href="' . APP_URL . 'certificateUpdate/' . $rows['id'] . '/" class="btn btn-sm btn-primary">Editar</a>
-                    <form class="FormularioAjax" action="'.APP_URL.'app/ajax/certificadoAjax.php" method="POST" autocomplete="off">
-                        <input type="hidden" name="modulo_certificado" value="eliminar">
-                        <input type="hidden" name="id" value="' . $rows['id'] . '">
-                        <button type="submit" class="btn btn-sm btn-danger">Eliminar</button>
-                    </form>
-                </td>
-            </tr>
-            ';
-            $contador++;
-        }
-        $pag_final = $contador - 1;
+    foreach ($datos as $rows) {
+        $tabla .= '
+        <tr>
+            <th scope="row">' . $contador . '</th> 
+            <td>' . $rows['nombre'] . '</td> 
+            <td>' . $rows['grupo'] . '</td> 
+            <td>' . $rows['correo_alertamiento'] . '</td> 
+            <td>
+    <!-- Botón para editar con icono de lápiz -->
+    <a href="' . APP_URL . 'certificateUpdate/' . $rows['id'] . '/" class="btn btn-sm btn-primary">
+        <i class="fas fa-pencil-alt"></i> <!-- Icono de lápiz -->
+    </a>
 
-        $tabla .= '</tbody></table></div>';
-        $tabla .= '<p class="text-right">Mostrando certificados <strong>' . $pag_inicio . '</strong> al <strong>' . $pag_final . '</strong> de un <strong>total de ' . $total . '</strong></p>';
-        $tabla .= $this->paginadorTablas($pagina, $numeroPaginas, $url, 7);
-    } else {
-        if ($total >= 1) {
-            $tabla .= '
-            <tr class="text-center">
-                <td colspan="5">
-                    <a href="' . $url . '1/" class="btn btn-link">Haga clic acá para recargar el listado</a>
-                </td>
-            </tr>';
+    <!-- Botón para eliminar con icono de basurero -->
+    <form class="FormularioAjax" action="'.APP_URL.'app/ajax/certificadoAjax.php" method="POST" autocomplete="off">
+        <input type="hidden" name="modulo_certificado" value="eliminar">
+        <input type="hidden" name="id" value="' . $rows['id'] . '">
+        <button type="submit" class="btn btn-sm btn-danger">
+            <i class="fas fa-trash-alt"></i> <!-- Icono de basurero -->
+        </button>
+    </form>
+</td>
+
+        </tr>';
+        $contador++;
+    }
+    $pag_final = $contador - 1;
+
+    $tabla .= '</tbody></table></div>';
+    $tabla .= '<p class="text-right">Mostrando certificados <strong>' . $pag_inicio . '</strong> al <strong>' . $pag_final . '</strong> de un <strong>total de ' . $total . '</strong></p>';
+    $tabla .= $this->paginadorTablas($pagina, $numeroPaginas, $url, 7);
+} else {
+    if ($total >= 1) {
+        $tabla .= '
+        <tr class="text-center">
+            <td colspan="5">
+                <a href="' . $url . '1/" class="btn btn-link">Haga clic acá para recargar el listado</a>
+            </td>
+        </tr>';
+
         } else {
             $tabla .= '
             <tr class="text-center">
@@ -253,6 +270,93 @@
         echo json_encode($alerta);
         exit();
         }
+        public function actualizarCertificadoControlador() {
+            // Obtener el ID del certificado
+            $id = $this->limpiarCadena($_POST['id']);
+        
+            // Verificar si el certificado existe en la base de datos
+            $insCertificado = new certificateController(); // Crear instancia del controlador
+            $datos = $insCertificado->seleccionarDatos("Unico", "certificados", "id", $id); // Verificar existencia del certificado
+        
+            if ($datos->rowCount() <= 0) {
+                $alerta = [
+                    "tipo" => "simple",
+                    "titulo" => "Error",
+                    "texto" => "No hemos encontrado el certificado en el sistema",
+                    "icono" => "error"
+                ];
+                echo json_encode($alerta);
+                exit();
+            }
+        
+            // Obtener los datos enviados por el formulario
+            $nombre = $this->limpiarCadena($_POST['certificado_nombre']);
+            $fecha_vencimiento = $this->limpiarCadena($_POST['certificado_fecha']);
+            $grupo = $this->limpiarCadena($_POST['certificado_grupo']);
+            $correo_alertamiento = $this->limpiarCadena($_POST['certificado_correo']);
+        
+            // Verificar campos obligatorios
+            if (empty($nombre) || empty($fecha_vencimiento) || empty($correo_alertamiento)) {
+                $alerta = [
+                    "tipo" => "simple",
+                    "titulo" => "Error",
+                    "texto" => "Faltan campos obligatorios",
+                    "icono" => "error"
+                ];
+                echo json_encode($alerta);
+                exit();
+            }
+        
+            // Preparar los datos para la actualización
+            $certificado_datos_up = [
+                [
+                    "campo_nombre" => "nombre",
+                    "campo_marcador" => ":Nombre",
+                    "campo_valor" => $nombre
+                ],
+                [
+                    "campo_nombre" => "fecha_vencimiento",
+                    "campo_marcador" => ":FechaVencimiento",
+                    "campo_valor" => $fecha_vencimiento
+                ],
+                [
+                    "campo_nombre" => "grupo",
+                    "campo_marcador" => ":Grupo",
+                    "campo_valor" => $grupo
+                ],
+                [
+                    "campo_nombre" => "correo_alertamiento",
+                    "campo_marcador" => ":CorreoAlertamiento",
+                    "campo_valor" => $correo_alertamiento
+                ]
+            ];
+        
+            $condicion = [
+                "condicion_campo" => "id",
+                "condicion_marcador" => ":ID",
+                "condicion_valor" => $id
+            ];
+        
+            // Ejecutar la actualización
+            if ($this->actualizarDatos("certificados", $certificado_datos_up, $condicion)) {
+                $alerta = [
+                    "tipo" => "recargar",
+                    "titulo" => "Éxito",
+                    "texto" => "Certificado actualizado correctamente",
+                    "icono" => "success"
+                ];
+            } else {
+                $alerta = [
+                    "tipo" => "simple",
+                    "titulo" => "Error",
+                    "texto" => "No se pudo actualizar el certificado",
+                    "icono" => "error"
+                ];
+            }
+        
+            // Retornar la alerta en formato JSON
+            echo json_encode($alerta);
+        }
     }
-
+    
 ?>
