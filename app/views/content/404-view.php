@@ -13,7 +13,7 @@
             <div class="container has-text-centered">
                 <h1 class="display-1 fw-bold has-text-white">404</h1>
                 <p class="h4 mb-4 has-text-white">Lo sentimos, la página que buscas no se encuentra disponible.</p>
-                <a href="index.html" class="button is-primary is-rounded is-large">
+                <a href="<?php echo APP_URL; ?>app/views/content/login" class="button is-primary is-rounded is-large">
                     Volver al Inicio
                 </a>
             </div>
